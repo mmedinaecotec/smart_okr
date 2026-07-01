@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodología SMART | Gestión por Procesos</title>
+<style>
+  :root{
+    --teal:#0097A7;
+    --teal-dark:#00707D;
+    --teal-light:#E0F5F7;
+    --teal-pale:#F2FBFC;
+    --accent:#FF8A3D;
+    --ink:#1F2D33;
+    --gray:#5C6B70;
+    --border:#D8ECEF;
+    --green:#2E9E5B;
+    --red:#D9534F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#FFFFFF;
+    color:var(--ink);
+    line-height:1.55;
+  }
+  header{
+    background:linear-gradient(135deg,var(--teal) 0%, var(--teal-dark) 100%);
+    color:#fff;
+    padding:34px 24px 28px;
+    text-align:center;
+  }
+  header h1{margin:0 0 6px; font-size:1.9rem; letter-spacing:.5px;}
+  header p{margin:2px 0; opacity:.92; font-size:.95rem;}
+  header .badge{
+    display:inline-block;
+    margin-top:10px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:20px;
+    padding:5px 16px;
+    font-size:.82rem;
+  }
+  nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    justify-content:center;
+    background:var(--teal-pale);
+    border-bottom:2px solid var(--border);
+    padding:10px 12px;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  nav button{
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--teal-dark);
+    padding:9px 16px;
+    border-radius:20px;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s;
+    white-space:nowrap;
+  }
+  nav button:hover{background:var(--teal-light);}
+  nav button.active{
+    background:var(--teal);
+    color:#fff;
+    border-color:var(--teal);
+  }
+  main{max-width:960px; margin:0 auto; padding:28px 20px 70px;}
+  section{display:none; animation:fade .35s ease;}
+  section.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  h2{color:var(--teal-dark); font-size:1.5rem; margin-bottom:4px;}
+  h2 .tag{display:block; font-size:.8rem; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px;}
+  .lead{color:var(--gray); font-size:1rem; margin-top:6px;}
+  .card{
+    background:var(--teal-pale);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 22px;
+    margin:16px 0;
+  }
+  .card h3{margin-top:0; color:var(--teal-dark);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+  .pill{
+    display:inline-block;
+    background:var(--teal-light);
+    color:var(--teal-dark);
+    border-radius:20px;
+    padding:3px 12px;
+    font-size:.78rem;
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .quote{
+    border-left:4px solid var(--teal);
+    background:#fff;
+    padding:12px 16px;
+    font-style:italic;
+    color:var(--gray);
+    border-radius:0 8px 8px 0;
+  }
+  .letter-accordion{border:1px solid var(--border); border-radius:12px; margin-bottom:12px; overflow:hidden;}
+  .letter-head{
+    display:flex; align-items:center; gap:14px;
+    background:#fff; padding:14px 18px; cursor:pointer;
+    font-weight:700; color:var(--teal-dark); font-size:1.05rem;
+  }
+  .letter-head:hover{background:var(--teal-pale);}
+  .letter-circle{
+    width:40px; height:40px; border-radius:50%;
+    background:var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem; font-weight:800; flex-shrink:0;
+  }
+  .letter-body{max-height:0; overflow:hidden; transition:max-height .35s ease; background:#fff;}
+  .letter-body-inner{padding:0 18px 18px 74px;}
+  .letter-accordion.open .letter-body{max-height:800px;}
+  .letter-accordion.open .chev{transform:rotate(180deg);}
+  .chev{margin-left:auto; transition:.3s; color:var(--gray);}
+  .qbox{
+    background:var(--teal-light); border-radius:8px; padding:10px 14px; margin-top:10px; font-size:.9rem;
+  }
+  .theory-note{
+    border:1px dashed var(--teal); background:#fff; border-radius:10px; padding:12px 16px; margin-top:10px; font-size:.9rem; color:var(--gray);
+  }
+  /* Ejemplo aplicado */
+  .example-box{background:var(--teal-pale); border-radius:14px; padding:20px; border:1px solid var(--border);}
+  .example-sentence{font-size:1.05rem; font-weight:600; margin-bottom:16px;}
+  .example-sentence span{
+    padding:2px 4px; border-radius:4px; cursor:pointer; transition:.2s;
+  }
+  .comp-list{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .comp-tag{
+    padding:6px 12px; border-radius:20px; font-size:.8rem; font-weight:700; cursor:pointer;
+    border:2px solid transparent; background:#fff; color:var(--teal-dark); border-color:var(--teal);
+  }
+  .comp-tag.on{background:var(--teal); color:#fff;}
+  .reveal-panel{display:none; margin-top:14px; background:#fff; border-radius:10px; padding:14px 16px; border:1px solid var(--border);}
+  /* Activities */
+  .activity-card{
+    border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:22px; background:#fff;
+  }
+  .activity-title{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
+  .activity-title .num{
+    background:var(--accent); color:#fff; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.9rem; flex-shrink:0;
+  }
+  .activity-title h3{margin:0; color:var(--teal-dark);}
+  .activity-desc{color:var(--gray); font-size:.9rem; margin-bottom:14px;}
+  .obj-item{
+    background:var(--teal-pale); border-radius:10px; padding:14px; margin-bottom:12px; border:1px solid var(--border);
+  }
+  .obj-text{margin-bottom:10px; font-size:.95rem;}
+  select.letter-select{
+    padding:6px 10px; border-radius:6px; border:1px solid var(--border); font-size:.85rem; margin-right:8px;
+  }
+  .check-btn, .action-btn{
+    background:var(--teal); color:#fff; border:none; padding:9px 18px; border-radius:20px;
+    font-weight:700; font-size:.85rem; cursor:pointer; margin-top:6px;
+  }
+  .check-btn:hover, .action-btn:hover{background:var(--teal-dark);}
+  .feedback{margin-top:8px; font-weight:700; font-size:.88rem;}
+  .feedback.ok{color:var(--green);}
+  .feedback.bad{color:var(--red);}
+  /* Builder */
+  .builder-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px;}
+  .builder-row label{font-size:.8rem; color:var(--gray); display:block; margin-bottom:4px;}
+  .builder-row select, .builder-row input{
+    padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:.85rem; width:100%;
+  }
+  .builder-col{flex:1; min-width:180px;}
+  .builder-output{
+    background:var(--teal-light); border-radius:10px; padding:16px; margin-top:14px; font-weight:600; font-size:1rem; color:var(--teal-dark);
+    min-height:50px;
+  }
+  .checklist{list-style:none; padding:0; margin-top:10px;}
+  .checklist li{padding:4px 0; font-size:.85rem; display:flex; gap:8px; align-items:center;}
+  .checklist li.ok{color:var(--green);}
+  .checklist li.pending{color:var(--gray);}
+  /* Quiz */
+  .quiz-q{margin-bottom:18px;}
+  .quiz-q p{font-weight:600; margin-bottom:8px;}
+  .quiz-opt{
+    display:block; width:100%; text-align:left; background:var(--teal-pale); border:1px solid var(--border);
+    border-radius:8px; padding:10px 14px; margin-bottom:6px; cursor:pointer; font-size:.88rem;
+  }
+  .quiz-opt:hover{background:var(--teal-light);}
+  .quiz-opt.correct{background:#DFF3E5; border-color:var(--green); color:#1c6b3d; font-weight:700;}
+  .quiz-opt.incorrect{background:#FBE2E1; border-color:var(--red); color:#a53a36; font-weight:700;}
+  .quiz-opt.disabled{cursor:default; pointer-events:none;}
+  .score-banner{
+    background:var(--teal); color:#fff; padding:10px 16px; border-radius:10px; font-weight:700; text-align:center; margin-bottom:16px;
+  }
+  /* Matching game */
+  .match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media(max-width:680px){.match-wrap{grid-template-columns:1fr;}}
+  .match-item{
+    background:#fff; border:2px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:10px;
+    cursor:pointer; font-size:.88rem; font-weight:600; transition:.15s;
+  }
+  .match-item:hover{border-color:var(--teal);}
+  .match-item.selected{border-color:var(--accent); background:var(--teal-light);}
+  .match-item.matched{border-color:var(--green); background:#DFF3E5; cursor:default; opacity:.8;}
+  .match-item.wrong{animation:shake .3s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+  footer{text-align:center; color:var(--gray); font-size:.8rem; padding:20px; border-top:1px solid var(--border);}
+  .bib-list{list-style:none; padding:0;}
+  .bib-list li{
+    background:var(--teal-pale); border-radius:8px; padding:12px 16px; margin-bottom:8px; font-size:.9rem; border:1px solid var(--border);
+  }
+  .bib-list a{color:var(--teal-dark);}
+  .progress-note{font-size:.8rem; color:var(--gray); text-align:right; margin-top:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Metodología SMART</h1>
+  <p>Gestión por Procesos · Unidad 4</p>
+  <p>Ing. Marcela Medina B., M.Sc. — mamedina@ecotec.edu.ec</p>
+  <div class="badge">Objetivos, KPI y establecimiento de metas efectivas</div>
+</header>
+
+<nav id="tabNav">
+  <button data-tab="inicio" class="active">Inicio</button>
+  <button data-tab="origen">Origen</button>
+  <button data-tab="concepto">Concepto y Objetivo</button>
+  <button data-tab="composicion">Composición SMART</button>
+  <button data-tab="masalla">Más allá de SMART</button>
+  <button data-tab="ejemplo">Ejemplo Aplicado</button>
+  <button data-tab="actividades">Actividades Interactivas</button>
+  <button data-tab="sintesis">Síntesis</button>
+  <button data-tab="bibliografia">Bibliografía</button>
+</nav>
+
+<main>
+
+  <!-- INICIO -->
+  <section id="inicio" class="active">
+    <h2><span class="tag">Sesión 4.2</span>Objetivo de la sesión</h2>
+    <div class="card">
+      <p style="font-size:1.05rem;">Comprender la metodología de objetivos <strong>SMART</strong> para el levantamiento de indicadores clave de desempeño (KPI).</p>
+    </div>
+    <div class="card">
+      <h3>Al finalizar la sesión, estará en capacidad de:</h3>
+      <p>Comprender la metodología SMART para el establecimiento de indicadores de desempeño, y aplicarla en la redacción y evaluación de objetivos organizacionales.</p>
+    </div>
+    <div class="card">
+      <h3>Agenda</h3>
+      <div class="grid2">
+        <ul>
+          <li>Origen de la metodología</li>
+          <li>Concepto</li>
+          <li>Objetivo</li>
+          <li>Composición (S-M-A-R-T)</li>
+        </ul>
+        <ul>
+          <li>Más allá de SMART (teoría complementaria)</li>
+          <li>Ejemplo aplicado</li>
+          <li>Actividades interactivas</li>
+          <li>Síntesis y bibliografía</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGEN -->
+  <section id="origen">
+    <h2><span class="tag">Metodología SMART</span>Origen</h2>
+    <div class="card">
+      <span class="pill">1981</span>
+      <p>La metodología SMART fue introducida por <strong>George T. Doran</strong> en su artículo <em>"There's a S.M.A.R.T. way to write management's goals and objectives"</em>, publicado en noviembre de 1981 en la revista <em>Management Review</em>.</p>
+      <p>Doran desarrolló este marco para ayudar a las organizaciones a definir objetivos eficaces, que pudieran ser fácilmente comprendidos y medidos por todos los niveles de la organización.</p>
+      <div class="theory-note">
+        <strong>Dato contextual:</strong> el artículo original de Doran proponía SMART principalmente para el establecimiento de objetivos gerenciales dentro de la revisión de desempeño anual — no nació como una herramienta de gestión de proyectos, aunque hoy se aplica ampliamente en ese campo.
+      </div>
+    </div>
+    <div class="card">
+      <h3>Línea de tiempo de evolución del concepto</h3>
+      <div class="grid2">
+        <div>
+          <p class="pill">1981</p>
+          <p>Doran acuña el acrónimo SMART en el contexto de gestión por objetivos.</p>
+        </div>
+        <div>
+          <p class="pill">Décadas 1990-2000</p>
+          <p>Se populariza en la planificación estratégica y en marcos de gestión de calidad y de proyectos (PMI, ISO).</p>
+        </div>
+        <div>
+          <p class="pill">2000s-hoy</p>
+          <p>Se integra a metodologías ágiles, OKR y sistemas de indicadores (KPI) como base para redactar metas claras.</p>
+        </div>
+        <div>
+          <p class="pill">Variantes actuales</p>
+          <p>Extensiones como SMARTER (Evaluated, Reviewed) o SMART+ agregan seguimiento y aprendizaje continuo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCEPTO -->
+  <section id="concepto">
+    <h2><span class="tag">Metodología SMART</span>Concepto</h2>
+    <div class="card">
+      <h3>¿Qué es la metodología SMART?</h3>
+      <p>Es un enfoque estructurado para la definición de objetivos que garantiza que las metas sean <strong>claras, alcanzables y evaluables</strong>.</p>
+      <p>Se basa en un conjunto de criterios que facilitan la creación de objetivos efectivos, y se ha convertido en una herramienta ampliamente utilizada en la gestión empresarial, la planificación estratégica, el desarrollo personal y la gestión de proyectos.</p>
+    </div>
+    <h2 style="margin-top:30px;"><span class="tag">Metodología SMART</span>Objetivo</h2>
+    <div class="card">
+      <p>Los objetivos de la metodología SMART se centran en establecer metas <strong>claras, alcanzables y medibles</strong>, con el fin de mejorar la eficacia en la planificación, ejecución y evaluación de proyectos o tareas.</p>
+      <p>Estos objetivos son esenciales para asegurar que tanto individuos como organizaciones trabajen de manera enfocada y productiva.</p>
+    </div>
+    <div class="card">
+      <h3>¿Por qué funciona? Fundamento teórico</h3>
+      <p>La eficacia de SMART no es solo práctica; tiene respaldo en la teoría del comportamiento organizacional:</p>
+      <ul>
+        <li><strong>Teoría del establecimiento de metas (Locke &amp; Latham):</strong> las metas específicas y desafiantes producen mejor desempeño que las metas vagas tipo "hazlo lo mejor posible", siempre que exista retroalimentación sobre el progreso.</li>
+        <li><strong>Management by Objectives — MBO (Peter Drucker):</strong> alinear objetivos individuales con la estrategia organizacional mejora el enfoque y la productividad.</li>
+        <li><strong>Teoría de la expectativa (Victor Vroom):</strong> las personas se motivan más cuando perciben que un objetivo es alcanzable con el esfuerzo adecuado.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMPOSICION -->
+  <section id="composicion">
+    <h2><span class="tag">Metodología SMART</span>Composición: las 5 características</h2>
+    <p class="lead">Haga clic sobre cada letra para desplegar el detalle.</p>
+
+    <div id="accordionWrap"></div>
+  </section>
+
+  <!-- MAS ALLA -->
+  <section id="masalla">
+    <h2><span class="tag">Contenido ampliado</span>Más allá de SMART</h2>
+    <div class="card">
+      <h3>Errores comunes al redactar objetivos SMART</h3>
+      <ul>
+        <li><strong>Verbos ambiguos:</strong> "mejorar", "optimizar" o "fortalecer" sin especificar cómo ni cuánto.</li>
+        <li><strong>Ausencia de línea base:</strong> plantear una meta de "aumentar en 20%" sin indicar el valor actual del indicador.</li>
+        <li><strong>Falta de plazo:</strong> objetivos sin fecha límite pierden urgencia y dificultan la evaluación.</li>
+        <li><strong>Metas desalineadas:</strong> perseguir indicadores que no aportan a la estrategia general del área o la empresa.</li>
+        <li><strong>Sobre-optimismo o sobre-conservadurismo:</strong> metas inalcanzables desmotivan; metas demasiado fáciles no generan valor.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>SMART vs. KPI vs. OKR</h3>
+      <div class="grid2">
+        <div>
+          <p class="pill">SMART</p>
+          <p>Es un <em>criterio de redacción</em>: garantiza que un objetivo esté bien formulado (claro, medible, realista, relevante y con plazo).</p>
+        </div>
+        <div>
+          <p class="pill">KPI</p>
+          <p>Es el <em>indicador</em> que se usa para medir el avance del objetivo SMART (por ejemplo, "tiempo promedio de respuesta").</p>
+        </div>
+        <div>
+          <p class="pill">OKR</p>
+          <p>Es un <em>marco de gestión</em> (Objectives &amp; Key Results) que combina una aspiración cualitativa con resultados clave, los cuales suelen redactarse aplicando criterios SMART.</p>
+        </div>
+        <div>
+          <p class="pill">En resumen</p>
+          <p>SMART no compite con KPI ni con OKR: es la técnica que asegura que ambos estén bien construidos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Extensión SMARTER</h3>
+      <p>Algunos autores añaden dos criterios adicionales para reforzar el ciclo de mejora continua:</p>
+      <ul>
+        <li><strong>E — Evaluado (Evaluated):</strong> el progreso se revisa periódicamente, no solo al final.</li>
+        <li><strong>R — Revisado / Reajustado (Reviewed):</strong> el objetivo puede ajustarse si las condiciones del entorno cambian significativamente.</li>
+      </ul>
+      <div class="theory-note">Esta variante conecta directamente con el ciclo PHVA (Planificar–Hacer–Verificar–Actuar) usado en los sistemas de gestión de calidad.</div>
+    </div>
+
+    <div class="card">
+      <span class="pill">Profundizando</span>
+      <h3>OKR — Objectives and Key Results</h3>
+      <p>Los <strong>OKR</strong> son un marco de gestión de objetivos creado por <strong>Andrew Grove</strong> en Intel durante los años 70, bajo la influencia directa del MBO de Drucker. John Doerr lo popularizó globalmente al introducirlo en Google en 1999, y hoy es utilizado por empresas como Google, LinkedIn e Intel para alinear equipos alrededor de metas ambiciosas y medibles.</p>
+      <div class="grid2">
+        <div>
+          <p class="pill">O — Objective</p>
+          <p>Una declaración <strong>cualitativa, inspiradora y ambiciosa</strong> de lo que se quiere lograr. Responde a la pregunta: <em>¿hacia dónde queremos ir?</em> No necesita ser numérico; debe motivar al equipo.</p>
+        </div>
+        <div>
+          <p class="pill">KR — Key Results</p>
+          <p>De 2 a 5 resultados <strong>cuantitativos y verificables</strong> que demuestran si el objetivo se está cumpliendo. Responden a: <em>¿cómo sabremos que llegamos?</em> Aquí es donde se aplican los criterios SMART (especialmente Medible y Con límite de tiempo).</p>
+        </div>
+      </div>
+      <div class="theory-note">
+        <strong>Ejemplo de estructura OKR:</strong><br>
+        Objetivo: "Convertirnos en el referente de servicio al cliente del sector logístico."<br>
+        KR1: Elevar el NPS de 42 a 65 puntos en el próximo trimestre.<br>
+        KR2: Reducir el tiempo promedio de respuesta a solicitudes en un 30% en 3 meses.<br>
+        KR3: Alcanzar el 95% de tickets resueltos en el primer contacto para fin de año.
+      </div>
+      <h3 style="margin-top:18px;">Diferencias clave frente a SMART</h3>
+      <div class="grid2">
+        <div>
+          <p class="pill">Nivel de ambición</p>
+          <p>SMART busca objetivos <em>alcanzables</em>; los OKR suelen fijarse deliberadamente ambiciosos ("moonshots"), aceptando un cumplimiento típico de 60-70% como éxito.</p>
+        </div>
+        <div>
+          <p class="pill">Estructura</p>
+          <p>SMART evalúa un objetivo individual con cinco criterios; un OKR combina un objetivo cualitativo con varios resultados clave que sí deben cumplir criterios SMART.</p>
+        </div>
+        <div>
+          <p class="pill">Frecuencia</p>
+          <p>Los OKR suelen revisarse trimestralmente (ciclos cortos); los objetivos SMART pueden tener horizontes más variables, desde semanas hasta un año.</p>
+        </div>
+        <div>
+          <p class="pill">Alcance</p>
+          <p>Los OKR se usan típicamente para alinear equipos y organizaciones completas; SMART se aplica tanto a nivel individual como organizacional.</p>
+        </div>
+      </div>
+      <div class="theory-note"><strong>En síntesis:</strong> SMART y OKR no son alternativas excluyentes — un buen Key Result casi siempre es, en el fondo, un objetivo SMART bien redactado dentro de una aspiración mayor.</div>
+    </div>
+  </section>
+
+  <!-- EJEMPLO -->
+  <section id="ejemplo">
+    <h2><span class="tag">Aplicación práctica</span>Ejemplo aplicado</h2>
+    <p class="lead">Objetivo: haga clic en cada etiqueta de color para ver qué parte de la frase corresponde a cada criterio SMART.</p>
+
+    <div class="example-box">
+      <div class="example-sentence" id="exampleSentence">
+        Reducir el tiempo promedio de respuesta a las solicitudes de soporte de los clientes
+        <span data-part="M"> en un 20% </span>
+        en los próximos
+        <span data-part="T">3 meses</span>,
+        implementando un
+        <span data-part="A">nuevo sistema de gestión de tickets</span>.
+      </div>
+      <div class="comp-list" id="compTags">
+        <div class="comp-tag" data-part="S">S · Específico</div>
+        <div class="comp-tag" data-part="M">M · Medible</div>
+        <div class="comp-tag" data-part="A">A · Alcanzable</div>
+        <div class="comp-tag" data-part="R">R · Relevante</div>
+        <div class="comp-tag" data-part="T">T · Con límite de tiempo</div>
+      </div>
+      <div class="reveal-panel" id="revealPanel"></div>
+    </div>
+  </section>
+
+  <!-- ACTIVIDADES -->
+  <section id="actividades">
+    <h2><span class="tag">Práctica</span>Actividades interactivas</h2>
+    <p class="lead">Cinco actividades para reforzar la metodología SMART y el marco OKR, sin límite de tiempo — trabaje a su propio ritmo.</p>
+
+    <!-- Actividad 1: clasificación original -->
+    <div class="activity-card">
+      <div class="activity-title"><div class="num">1</div><h3>Clasifique los objetivos según SMART</h3></div>
+      <p class="activity-desc">Para cada objetivo, identifique cuál criterio predomina en la parte resaltada. Seleccione la letra correcta y compruebe su respuesta.</p>
+      <div id="classifyWrap"></div>
+    </div>
+
+    <!-- Actividad 2: matching -->
+    <div class="activity-card">
+      <div class="activity-title"><div class="num">2</div><h3>Empareje la letra con su pregunta guía</h3></div>
+      <p class="activity-desc">Seleccione una letra y luego la pregunta que le corresponde. Si el par es correcto, ambos se marcarán en verde.</p>
+      <div class="match-wrap">
+        <div id="matchLeft"></div>
+        <div id="matchRight"></div>
+      </div>
+      <p class="progress-note" id="matchProgress"></p>
+    </div>
+
+    <!-- Actividad 3: builder -->
+    <div class="activity-card">
+      <div class="activity-title"><div class="num">3</div><h3>Constructor de objetivos SMART</h3></div>
+      <p class="activity-desc">Seleccione los componentes para armar su propio objetivo SMART y observe la redacción final en tiempo real.</p>
+      <div class="builder-row">
+        <div class="builder-col">
+          <label>Acción / verbo (S)</label>
+          <select id="b_action">
+            <option value="Aumentar">Aumentar</option>
+            <option value="Reducir">Reducir</option>
+            <option value="Implementar">Implementar</option>
+            <option value="Optimizar">Optimizar</option>
+          </select>
+        </div>
+        <div class="builder-col">
+          <label>Objeto del indicador (S)</label>
+          <input id="b_object" type="text" placeholder="ej. tasa de retención de clientes">
+        </div>
+      </div>
+      <div class="builder-row">
+        <div class="builder-col">
+          <label>Meta numérica (M)</label>
+          <input id="b_metric" type="text" placeholder="ej. en un 15%">
+        </div>
+        <div class="builder-col">
+          <label>Medio / recurso (A)</label>
+          <input id="b_means" type="text" placeholder="ej. mediante un programa de fidelización">
+        </div>
+      </div>
+      <div class="builder-row">
+        <div class="builder-col">
+          <label>Área / relevancia (R)</label>
+          <input id="b_area" type="text" placeholder="ej. alineado a la estrategia de servicio al cliente">
+        </div>
+        <div class="builder-col">
+          <label>Plazo (T)</label>
+          <input id="b_time" type="text" placeholder="ej. en los próximos 6 meses">
+        </div>
+      </div>
+      <button class="action-btn" onclick="buildObjective()">Generar objetivo</button>
+      <div class="builder-output" id="builderOutput">Su objetivo aparecerá aquí…</div>
+      <ul class="checklist" id="builderChecklist"></ul>
+    </div>
+
+    <!-- Actividad 4: constructor OKR -->
+    <div class="activity-card">
+      <div class="activity-title"><div class="num">4</div><h3>Constructor de OKR</h3></div>
+      <p class="activity-desc">Redacte un Objetivo inspirador y hasta 3 Resultados Clave (Key Results). Cada Key Result debe intentar cumplir los criterios SMART: agregue meta numérica y plazo.</p>
+
+      <div class="builder-row">
+        <div class="builder-col" style="flex:1 1 100%;">
+          <label>Objetivo (O) — cualitativo e inspirador</label>
+          <input id="okr_objective" type="text" placeholder="ej. Convertirnos en el referente de servicio al cliente del sector logístico">
+        </div>
+      </div>
+
+      <div class="card" style="background:#fff; border:1px dashed var(--teal); margin-top:10px;">
+        <strong>Key Result 1</strong>
+        <div class="builder-row" style="margin-top:8px;">
+          <div class="builder-col">
+            <label>Resultado clave (qué se mide)</label>
+            <input id="okr_kr1_text" type="text" placeholder="ej. Elevar el NPS">
+          </div>
+          <div class="builder-col">
+            <label>Meta numérica</label>
+            <input id="okr_kr1_metric" type="text" placeholder="ej. de 42 a 65 puntos">
+          </div>
+          <div class="builder-col">
+            <label>Plazo</label>
+            <input id="okr_kr1_time" type="text" placeholder="ej. en el próximo trimestre">
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#fff; border:1px dashed var(--teal); margin-top:10px;">
+        <strong>Key Result 2</strong>
+        <div class="builder-row" style="margin-top:8px;">
+          <div class="builder-col">
+            <label>Resultado clave (qué se mide)</label>
+            <input id="okr_kr2_text" type="text" placeholder="ej. Reducir el tiempo de respuesta">
+          </div>
+          <div class="builder-col">
+            <label>Meta numérica</label>
+            <input id="okr_kr2_metric" type="text" placeholder="ej. en un 30%">
+          </div>
+          <div class="builder-col">
+            <label>Plazo</label>
+            <input id="okr_kr2_time" type="text" placeholder="ej. en 3 meses">
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#fff; border:1px dashed var(--teal); margin-top:10px;">
+        <strong>Key Result 3 <span style="font-weight:400; color:var(--gray); font-size:.8rem;">(opcional)</span></strong>
+        <div class="builder-row" style="margin-top:8px;">
+          <div class="builder-col">
+            <label>Resultado clave (qué se mide)</label>
+            <input id="okr_kr3_text" type="text" placeholder="ej. Alcanzar tickets resueltos en primer contacto">
+          </div>
+          <div class="builder-col">
+            <label>Meta numérica</label>
+            <input id="okr_kr3_metric" type="text" placeholder="ej. 95%">
+          </div>
+          <div class="builder-col">
+            <label>Plazo</label>
+            <input id="okr_kr3_time" type="text" placeholder="ej. para fin de año">
+          </div>
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="buildOKR()">Generar OKR</button>
+      <div class="builder-output" id="okrOutput">Su OKR aparecerá aquí…</div>
+      <ul class="checklist" id="okrChecklist"></ul>
+    </div>
+
+    <!-- Actividad 5: quiz -->
+    <div class="activity-card">
+      <div class="activity-title"><div class="num">5</div><h3>Quiz de comprensión</h3></div>
+      <p class="activity-desc">Responda las siguientes preguntas de opción múltiple. Puede intentarlo las veces que desee.</p>
+      <div class="score-banner" id="quizScoreBanner">Puntaje: 0 / 0</div>
+      <div id="quizWrap"></div>
+    </div>
+  </section>
+
+  <!-- SINTESIS -->
+  <section id="sintesis">
+    <h2><span class="tag">Cierre</span>Síntesis de la sesión</h2>
+    <div class="card">
+      <ul>
+        <li>La metodología SMART es un enfoque estructurado para la definición de objetivos que garantiza que las metas sean claras, alcanzables y evaluables.</li>
+        <li>Es un acrónimo: <strong>Specific, Measurable, Achievable, Relevant/Realistic, Time-bound</strong>.</li>
+        <li>Los objetivos SMART deben ser claros y precisos: definir con detalle qué se quiere lograr ayuda a eliminar confusiones y a centrar los esfuerzos.</li>
+        <li>Deben tener un propósito estratégico: ser significativos y estar alineados con las prioridades y metas generales del equipo o la organización.</li>
+        <li>Deben tener un marco temporal establecido: los tiempos específicos ayudan a mantener la urgencia y permiten una mejor planificación y control.</li>
+        <li>Complementos útiles: la teoría de fijación de metas (Locke &amp; Latham) y la teoría de la expectativa (Vroom) explican por qué SMART funciona; la extensión SMARTER agrega evaluación y ajuste continuo.</li>
+        <li>El marco <strong>OKR</strong> (Objectives &amp; Key Results, Andrew Grove / Intel) combina un Objetivo cualitativo e inspirador con Key Results medibles: estos últimos suelen redactarse aplicando criterios SMART, por lo que ambos marcos se complementan en lugar de competir.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BIBLIOGRAFIA -->
+  <section id="bibliografia">
+    <h2><span class="tag">Referencias</span>Bibliografía de la sesión</h2>
+    <ul class="bib-list">
+      <li>Doran, G. T. (1981). There's a S.M.A.R.T. way to write management's goals and objectives. <em>Management Review</em>.</li>
+      <li>Steffens, G., &amp; Cadiat, A.-C. (2016). <em>Los criterios SMART: El método para fijar objetivos con éxito</em>.</li>
+      <li>Chahal, R. S. (2024). <em>El Arte de Alcanzar Metas SMART: Estrategias y Consejos Prácticos</em>.</li>
+      <li>Banco Santander | Open Academy (2024). Cómo definir los objetivos SMART: 5 ejemplos para tu proyecto. <a href="https://www.santanderopenacademy.com/es/blog/objetivos-smart.html" target="_blank">santanderopenacademy.com</a></li>
+      <li>Asana Inc. (2024). Qué son los objetivos SMART con ejemplos y plantilla. <a href="https://asana.com/es/resources/smart-goals" target="_blank">asana.com</a></li>
+      <li>Locke, E. A., &amp; Latham, G. P. (2002). Building a practically useful theory of goal setting and task motivation. <em>American Psychologist</em>.</li>
+      <li>Drucker, P. F. (1954). <em>The Practice of Management</em>.</li>
+      <li>Vroom, V. H. (1964). <em>Work and Motivation</em>.</li>
+      <li>Doerr, J. (2018). <em>Measure What Matters: How Google, Bono, and the Gates Foundation Rock the World with OKRs</em>.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>Gestión por Procesos — Unidad 4.2 · Metodología SMART · Material interactivo de apoyo</footer>
+
+<script>
+/* ---------- NAV ---------- */
+const navButtons = document.querySelectorAll('nav button');
+navButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    navButtons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+/* ---------- ACCORDION COMPOSICION ---------- */
+const letters = [
+  {l:'S', name:'Específico (Specific)',
+   text:'Los objetivos deben ser claros, detallados y concretos, evitando cualquier tipo de ambigüedad. Este criterio permite que todas las personas involucradas comprendan exactamente qué se debe lograr.',
+   questions:['¿Qué se quiere lograr?','¿Quién está involucrado?','¿Dónde ocurrirá?','¿Por qué es importante?'],
+   note:'Según la teoría del Management by Objectives (Gestión por Objetivos) de Peter Drucker, los objetivos específicos permiten a las organizaciones alinear sus actividades diarias con sus metas estratégicas a largo plazo. Cuando los objetivos son vagos o abstractos, es difícil dirigir esfuerzos hacia su consecución.'},
+  {l:'M', name:'Medible (Measurable)',
+   text:'Los objetivos deben tener criterios medibles para permitir evaluar el progreso y el éxito. La medición es crucial para determinar si se están alcanzando las metas y para ajustar estrategias si es necesario.',
+   questions:['¿Cómo sabremos que hemos alcanzado el objetivo?','¿Qué indicadores usaremos para medir el progreso?'],
+   note:'Los Indicadores Clave de Desempeño (KPIs) se utilizan para cuantificar el progreso hacia un objetivo y así poder gestionar el rendimiento eficientemente.'},
+  {l:'A', name:'Alcanzable (Achievable)',
+   text:'Los objetivos deben ser realistas y alcanzables dentro de las capacidades y los recursos disponibles. Un objetivo alcanzable no significa que sea fácil, sino que es posible de lograr con esfuerzo razonable.',
+   questions:['¿Es posible alcanzar este objetivo dadas las limitaciones actuales?','¿Qué recursos son necesarios para cumplir con este objetivo?'],
+   note:'Según la teoría de la expectativa de Victor Vroom, las personas están más motivadas para trabajar hacia un objetivo si creen que es alcanzable. Metas inalcanzables reducen la motivación; metas desafiantes pero realistas impulsan el rendimiento.'},
+  {l:'R', name:'Relevante / Realista (Relevant)',
+   text:'Los objetivos deben ser importantes para el éxito de la organización o proyecto y estar alineados con los objetivos generales. Un objetivo relevante asegura que los esfuerzos estén dirigidos hacia resultados significativos y estratégicos.',
+   questions:['¿Este objetivo es consistente con otras metas a largo plazo?','¿Por qué es importante lograr este objetivo?'],
+   note:'Las metas deben estar alineadas con la misión y visión de la organización para garantizar que los recursos se utilicen de manera eficiente.'},
+  {l:'T', name:'Con límite de tiempo (Time-bound)',
+   text:'Todo objetivo debe tener un marco temporal claro y definido. Esto incluye una fecha de inicio, plazos intermedios para evaluar el progreso, y una fecha límite final para el logro del objetivo.',
+   questions:['¿Cuándo debe alcanzarse el objetivo?','¿Cuáles son los plazos intermedios que se deben cumplir?'],
+   note:'Tener un límite temporal motiva a las personas a organizar sus esfuerzos y priorizar tareas.'}
+];
+
+const accWrap = document.getElementById('accordionWrap');
+letters.forEach((item,i)=>{
+  const div = document.createElement('div');
+  div.className = 'letter-accordion';
+  div.innerHTML = `
+    <div class="letter-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="letter-circle">${item.l}</div>
+      <span>${item.name}</span>
+      <span class="chev">▼</span>
+    </div>
+    <div class="letter-body"><div class="letter-body-inner">
+      <p>${item.text}</p>
+      <div class="qbox"><strong>Preguntas guía:</strong><br>${item.questions.join('<br>')}</div>
+      <div class="theory-note">${item.note}</div>
+    </div></div>
+  `;
+  accWrap.appendChild(div);
+});
+
+/* ---------- EJEMPLO APLICADO ---------- */
+const exampleInfo = {
+  S: 'Específico: "Reducir el tiempo promedio de respuesta a las solicitudes de soporte de los clientes" — indica con claridad qué se quiere lograr y en qué área (servicio al cliente).',
+  M: 'Medible: "en un 20%" — el porcentaje permite cuantificar el avance y verificar el cumplimiento.',
+  A: 'Alcanzable: "implementando un nuevo sistema de gestión de tickets" — el medio propuesto hace factible la meta con los recursos disponibles.',
+  R: 'Relevante: el objetivo está directamente relacionado con la satisfacción del cliente, un pilar estratégico del servicio al cliente.',
+  T: 'Con límite de tiempo: "en los próximos 3 meses" — fija un plazo claro para evaluar el cumplimiento.'
+};
+document.querySelectorAll('.comp-tag').forEach(tag=>{
+  tag.addEventListener('click', ()=>{
+    document.querySelectorAll('.comp-tag').forEach(t=>t.classList.remove('on'));
+    tag.classList.add('on');
+    document.querySelectorAll('.example-sentence span').forEach(s=>{s.style.background='';s.style.color='';});
+    const part = tag.dataset.part;
+    document.querySelectorAll(`.example-sentence span[data-part="${part}"]`).forEach(s=>{
+      s.style.background = '#0097A7'; s.style.color='#fff';
+    });
+    const panel = document.getElementById('revealPanel');
+    panel.style.display = 'block';
+    panel.innerHTML = `<strong>${tag.textContent}</strong><p style="margin:6px 0 0;">${exampleInfo[part]}</p>`;
+  });
+});
+
+/* ---------- ACTIVIDAD 1: CLASIFICACION ---------- */
+const classifyData = [
+  {text:'Incrementar las ventas de productos tecnológicos en un <u>10%</u> durante los próximos 6 meses mediante la ampliación del equipo de ventas y campañas de marketing digital.', highlight:'10%', answer:'M'},
+  {text:'Reducir el tiempo promedio de respuesta a las consultas de los clientes en un 25% en los próximos <u>3 meses</u> mediante la implementación de un chatbot de atención al cliente.', highlight:'3 meses', answer:'T'},
+  {text:'Disminuir la rotación de empleados en un 15% en el próximo año mediante la implementación de un <u>programa de bienestar y desarrollo profesional</u>.', highlight:'programa de bienestar', answer:'A'},
+  {text:'Mejorar la eficiencia de producción en un 12% en los próximos 9 meses <u>implementando nuevas tecnologías y capacitando al personal</u>.', highlight:'nuevas tecnologías', answer:'A'}
+];
+const classifyWrap = document.getElementById('classifyWrap');
+classifyData.forEach((item,idx)=>{
+  const div = document.createElement('div');
+  div.className = 'obj-item';
+  div.innerHTML = `
+    <div class="obj-text">${idx+1}. ${item.text}</div>
+    <select class="letter-select" id="cls_${idx}">
+      <option value="">Seleccione…</option>
+      <option value="S">S · Específico</option>
+      <option value="M">M · Medible</option>
+      <option value="A">A · Alcanzable</option>
+      <option value="R">R · Relevante</option>
+      <option value="T">T · Con límite de tiempo</option>
+    </select>
+    <button class="check-btn" onclick="checkClassify(${idx})">Comprobar</button>
+    <div class="feedback" id="cls_fb_${idx}"></div>
+  `;
+  classifyWrap.appendChild(div);
+});
+function checkClassify(idx){
+  const sel = document.getElementById('cls_'+idx).value;
+  const fb = document.getElementById('cls_fb_'+idx);
+  if(!sel){ fb.className='feedback bad'; fb.textContent='Seleccione una opción.'; return; }
+  if(sel === classifyData[idx].answer){
+    fb.className='feedback ok';
+    fb.textContent='✓ Correcto.';
+  } else {
+    fb.className='feedback bad';
+    fb.textContent='✗ Intente de nuevo. Pista: revise la parte subrayada de la frase.';
+  }
+}
+
+/* ---------- ACTIVIDAD 2: MATCHING ---------- */
+const matchPairs = [
+  {id:'S', label:'S', question:'¿Qué se quiere lograr y quién está involucrado?'},
+  {id:'M', label:'M', question:'¿Cómo sabremos que hemos alcanzado el objetivo?'},
+  {id:'A', label:'A', question:'¿Es posible alcanzar este objetivo con los recursos actuales?'},
+  {id:'R', label:'R', question:'¿Este objetivo está alineado con las metas generales?'},
+  {id:'T', label:'T', question:'¿Cuándo debe alcanzarse el objetivo?'}
+];
+let matchSelectedLetter = null;
+let matchSelectedQuestion = null;
+let matchedCount = 0;
+
+function shuffle(arr){ return arr.slice().sort(()=>Math.random()-0.5); }
+
+const matchLeft = document.getElementById('matchLeft');
+const matchRight = document.getElementById('matchRight');
+
+matchPairs.forEach(p=>{
+  const el = document.createElement('div');
+  el.className='match-item';
+  el.textContent = p.label + ' — ' + ({S:'Específico',M:'Medible',A:'Alcanzable',R:'Relevante',T:'Con límite de tiempo'})[p.id];
+  el.dataset.id = p.id;
+  el.addEventListener('click', ()=>selectMatch(el,'letter'));
+  matchLeft.appendChild(el);
+});
+shuffle(matchPairs).forEach(p=>{
+  const el = document.createElement('div');
+  el.className='match-item';
+  el.textContent = p.question;
+  el.dataset.id = p.id;
+  el.addEventListener('click', ()=>selectMatch(el,'question'));
+  matchRight.appendChild(el);
+});
+
+function selectMatch(el, side){
+  if(el.classList.contains('matched')) return;
+  if(side==='letter'){
+    if(matchSelectedLetter) matchSelectedLetter.classList.remove('selected');
+    matchSelectedLetter = el;
+  } else {
+    if(matchSelectedQuestion) matchSelectedQuestion.classList.remove('selected');
+    matchSelectedQuestion = el;
+  }
+  el.classList.add('selected');
+  if(matchSelectedLetter && matchSelectedQuestion){
+    if(matchSelectedLetter.dataset.id === matchSelectedQuestion.dataset.id){
+      matchSelectedLetter.classList.remove('selected');
+      matchSelectedQuestion.classList.remove('selected');
+      matchSelectedLetter.classList.add('matched');
+      matchSelectedQuestion.classList.add('matched');
+      matchedCount++;
+      updateMatchProgress();
+      matchSelectedLetter = null; matchSelectedQuestion = null;
+    } else {
+      matchSelectedLetter.classList.add('wrong');
+      matchSelectedQuestion.classList.add('wrong');
+      setTimeout(()=>{
+        matchSelectedLetter.classList.remove('selected','wrong');
+        matchSelectedQuestion.classList.remove('selected','wrong');
+        matchSelectedLetter = null; matchSelectedQuestion = null;
+      },500);
+    }
+  }
+}
+function updateMatchProgress(){
+  document.getElementById('matchProgress').textContent = `Emparejados: ${matchedCount} / ${matchPairs.length}` + (matchedCount===matchPairs.length ? ' — ¡Completado!' : '');
+}
+updateMatchProgress();
+
+/* ---------- ACTIVIDAD 3: BUILDER ---------- */
+function buildObjective(){
+  const action = document.getElementById('b_action').value;
+  const object = document.getElementById('b_object').value.trim();
+  const metric = document.getElementById('b_metric').value.trim();
+  const means = document.getElementById('b_means').value.trim();
+  const area = document.getElementById('b_area').value.trim();
+  const time = document.getElementById('b_time').value.trim();
+
+  let sentence = `${action} ${object || '[objeto del indicador]'} ${metric || '[meta numérica]'} ${time || '[plazo]'} ${means ? 'mediante ' + means : ''}${area ? ', ' + area : ''}.`;
+  document.getElementById('builderOutput').textContent = sentence;
+
+  const checks = [
+    {ok: !!object, label:'S — Específico: indica qué se quiere lograr'},
+    {ok: !!metric, label:'M — Medible: incluye una meta cuantificable'},
+    {ok: !!means, label:'A — Alcanzable: define el medio o recurso'},
+    {ok: !!area, label:'R — Relevante: se conecta con la estrategia'},
+    {ok: !!time, label:'T — Con límite de tiempo: define un plazo'}
+  ];
+  const ul = document.getElementById('builderChecklist');
+  ul.innerHTML = checks.map(c=>`<li class="${c.ok?'ok':'pending'}">${c.ok?'✓':'○'} ${c.label}</li>`).join('');
+}
+
+/* ---------- ACTIVIDAD 4: BUILDER OKR ---------- */
+function buildOKR(){
+  const objective = document.getElementById('okr_objective').value.trim();
+  const krs = [1,2,3].map(n=>({
+    text: document.getElementById(`okr_kr${n}_text`).value.trim(),
+    metric: document.getElementById(`okr_kr${n}_metric`).value.trim(),
+    time: document.getElementById(`okr_kr${n}_time`).value.trim()
+  })).filter(kr => kr.text || kr.metric || kr.time);
+
+  let html = `<div><strong>Objetivo:</strong> ${objective || '[escriba su objetivo]'}</div>`;
+  if(krs.length === 0){
+    html += `<div style="margin-top:8px; color:var(--gray);">Agregue al menos un Key Result.</div>`;
+  } else {
+    html += '<ul style="margin-top:8px; padding-left:20px;">' +
+      krs.map((kr,i)=>`<li>KR${i+1}: ${kr.text || '[resultado]'} ${kr.metric || '[meta numérica]'} ${kr.time || '[plazo]'}</li>`).join('') +
+      '</ul>';
+  }
+  document.getElementById('okrOutput').innerHTML = html;
+
+  const hasObjective = objective.length > 0;
+  const krCount = krs.length;
+  const krsWithMetricAndTime = krs.filter(kr => kr.metric && kr.time).length;
+
+  const checks = [
+    {ok: hasObjective, label:'O — El objetivo es cualitativo e inspirador'},
+    {ok: krCount >= 2, label:'Se definieron entre 2 y 3 Key Results'},
+    {ok: krCount>0 && krsWithMetricAndTime === krCount, label:'Cada Key Result tiene meta numérica y plazo (criterios SMART aplicados a los KR)'}
+  ];
+  const okrUl = document.getElementById('okrChecklist');
+  okrUl.innerHTML = checks.map(c=>`<li class="${c.ok?'ok':'pending'}">${c.ok?'✓':'○'} ${c.label}</li>`).join('');
+}
+
+/* ---------- ACTIVIDAD 4: QUIZ ---------- */
+const quizData = [
+  {q:'¿En qué año y por quién fue introducida la metodología SMART?',
+   opts:['1981, George T. Doran','1954, Peter Drucker','1964, Victor Vroom','2002, Locke y Latham'], correct:0},
+  {q:'¿Qué criterio de SMART responde a la pregunta "¿Cómo sabremos que hemos alcanzado el objetivo?"?',
+   opts:['Específico','Medible','Alcanzable','Relevante'], correct:1},
+  {q:'Según Victor Vroom, ¿qué ocurre cuando un objetivo se percibe como inalcanzable?',
+   opts:['Aumenta la motivación','Disminuye la motivación','No tiene efecto','Se vuelve más específico'], correct:1},
+  {q:'¿Cuál de las siguientes NO es una extensión típica de SMART (SMARTER)?',
+   opts:['Evaluado','Revisado','Delegado','Ninguna de las anteriores es incorrecta'], correct:2},
+  {q:'Un KPI se relaciona principalmente con qué elemento de un objetivo SMART?',
+   opts:['Específico','Medible','Relevante','Alcanzable'], correct:1},
+  {q:'¿Qué es un OKR en relación con SMART?',
+   opts:['Un sustituto de SMART','Un marco de gestión cuyos resultados clave suelen redactarse con criterios SMART','Un tipo de KPI financiero','Una crítica a la metodología SMART'], correct:1},
+  {q:'¿Quién creó el marco OKR y en qué empresa?',
+   opts:['Peter Drucker, en General Electric','Andrew Grove, en Intel','John Doerr, en Google','Victor Vroom, en Yale'], correct:1},
+  {q:'En un OKR, ¿qué elemento debe ser cualitativo e inspirador?',
+   opts:['El Key Result','El Objective','El KPI','El plazo'], correct:1},
+  {q:'¿Qué nivel de cumplimiento se considera típicamente "éxito" en un OKR ambicioso ("moonshot")?',
+   opts:['100%','Entre 60% y 70%','Menos del 30%','Debe cumplirse siempre al 100% o se considera un fracaso'], correct:1}
+];
+let quizCorrect = 0;
+let quizAnswered = 0;
+const quizWrap = document.getElementById('quizWrap');
+quizData.forEach((item,qi)=>{
+  const div = document.createElement('div');
+  div.className='quiz-q';
+  div.innerHTML = `<p>${qi+1}. ${item.q}</p>` +
+    item.opts.map((opt,oi)=>`<button class="quiz-opt" onclick="answerQuiz(${qi},${oi},this)">${opt}</button>`).join('');
+  quizWrap.appendChild(div);
+});
+function answerQuiz(qi, oi, btn){
+  const qDiv = btn.parentElement;
+  const opts = qDiv.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  if(oi === quizData[qi].correct){
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('incorrect');
+    opts[quizData[qi].correct].classList.add('correct');
+  }
+  quizAnswered++;
+  if(oi === quizData[qi].correct) quizCorrect++;
+  document.getElementById('quizScoreBanner').textContent = `Puntaje: ${quizCorrect} / ${quizAnswered}`;
+}
+</script>
+</body>
+</html>
